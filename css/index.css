@@ -18,18 +18,45 @@
 .center {
     margin: 0 auto;
 }
+.row {
+    margin-right: auto;
+    margin-left: auto;
+}
 
-.processoCabecalho {
+.processo-cabecalho {
     display: inline-flex;
     margin-right: 20px;
 }
 
-.processoExecucao{
+.processo-execucao{
     display: inline-flex;
 }
 
-.processoNome {
+.processo-nome {
     width: 25px;
     margin-right: 5px;
     margin-bottom: 0px;
+}
+
+#processos-grid {
+    margin-top: 10px;
+}
+
+.border {
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.466) !important;
+    border-radius: 5px;
+}
+
+#algoritmos-radio {
+    width: 30%;
+    float: left;
+}
+
+.processo-form-title {
+    display: flow-root;
+}
+
+hr {
+    border-top: 1px solid rgba(0, 0, 0, 0.466);
 }
