@@ -1,18 +1,35 @@
 .square {
     border: 1px solid black;
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
 }
 .index-row {
     position: relative;
-    left: -20px;
+}
+.index-cabecalho {
+    display: inline-flex;
+    margin-right: 5px;
 }
 
 .index {
-    height: 40px;
-    width: 40px;
-    /* margin-right: 20px; */
+    height: 30px;
+    width: 30px;
 }
 .center {
     margin: 0 auto;
+}
+
+.processoCabecalho {
+    display: inline-flex;
+    margin-right: 20px;
+}
+
+.processoExecucao{
+    display: inline-flex;
+}
+
+.processoNome {
+    width: 25px;
+    margin-right: 5px;
+    margin-bottom: 0px;
 }
