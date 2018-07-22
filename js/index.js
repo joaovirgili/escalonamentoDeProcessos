@@ -1,12 +1,15 @@
 //GLOBALS
 var numProcessos = 0;
 var idProcessos = 0;
+var processosAtuais = [];
 var processosGrid = document.getElementById("processos-grid");
 var processosDiv = document.getElementById("processos-div");
+
 
 function adicionarProcesso() {
   numProcessos++;
   idProcessos++;
+  processosAtuais.push(idProcessos);
 
   atualziarNumeroDeProcessos();
   adicionarProcessoExecucao();
@@ -37,6 +40,7 @@ function adicionarProcessoForm() {
       
       let execucao = document.getElementById("processo"+this.id);
       execucao.parentElement.removeChild(execucao);
+      
       numProcessos--;
       atualziarNumeroDeProcessos();
     }
@@ -59,7 +63,7 @@ function adicionarProcessoForm() {
 
   let processoFormDiv = document.createElement("div");
   if (idProcessos !== 1) divPrincipal.lastChild.appendChild(document.createElement("hr"));
-  processoFormDiv.setAttribute("id", "processo-form"+idProcessos);
+  processoFormDiv.setAttribute("id", "processo"+idProcessos);
   processoFormDiv.appendChild(processoFormTitle);
   processoFormDiv.appendChild(form);
 
@@ -130,6 +134,50 @@ function atualziarNumeroDeProcessos() {
 
 document.getElementById("add-processo").addEventListener('click', adicionarProcesso);
 
+document.getElementById("iniciar-execucao").addEventListener('click', function() {
+  let error = checarCampos();
+  if (!error) {
+    //TODO ok
+  } else {
+    alert(error);
+  }
+});
+
+function checarCampos() {
+  let inputSobrecarga = document.getElementById("sobrecarga");
+  let inputQuantum = document.getElementById("quantum");
+  
+  if (inputSobrecarga.value === "" || sobrecarga.value < 0) {
+    return "Campo sobrecarga inválido."
+  } else if (inputQuantum.value === "" || inputQuantum.value < 0) {
+    return "Campo Quantum inválido."
+  }
+  
+  let processos = document.getElementById("processos-form-div");
+  for (let i=0;i<processos.children.length;i++) {
+    let processoId = processos.children[i].id.slice(-1);
+
+    let inputChegada = document.getElementById(processos.children[i].id+"-chegada");
+    let inputExecucao = document.getElementById(processos.children[i].id+"-execucao");
+    let inputDeadline = document.getElementById(processos.children[i].id+"-deadline");
+    let inputPrioridade = document.getElementById(processos.children[i].id+"-prioridade");
+
+    if (inputChegada.value === "" || inputChegada.value < 0) {
+      return "Campo Tempo de Chegada do Processo " + processoId + " inválido";
+    } else if (inputExecucao.value === "" || inputExecucao.value < 0) {
+      return "Campo Tempo de Execução do Processo " + processoId + " inválido";
+    } else if (inputDeadline.value === "" || inputDeadline.value < 0) {
+      return "Campo Deadline do Processo " + processoId + " inválido";
+    } else if (inputPrioridade.value === "" || inputPrioridade.value < 0) {
+      return "Campo Prioridade do Processo " + processoId + " inválido";
+    }
+
+  }
+
+}
+
+
+//Inicia com 2 processos
 adicionarProcesso();
 adicionarProcesso();
 
