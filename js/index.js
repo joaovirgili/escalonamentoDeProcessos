@@ -74,7 +74,7 @@ function adicionarProcessoExecucao() {
   //Criação da div processo.
   let processo = document.createElement("div");
   processo.setAttribute("class", "row");
-  processo.setAttribute("id", "processo" + idProcessos);
+  processo.setAttribute("id", "processo" + idProcessos+"execucao");
 
   //Criação da div processoCabecalho
   let processoCabecalho = document.createElement("div");
@@ -176,6 +176,11 @@ function checarCampos() {
 
 }
 
+function pintarQuadrado (processoId, coluna, cor) {
+  let processo = document.getElementById("processo1execucao").children[1];
+  processo.children[coluna].style.backgroundColor = cor;
+
+}
 
 //Inicia com 2 processos
 adicionarProcesso();
