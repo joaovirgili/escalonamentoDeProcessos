@@ -5,6 +5,14 @@ var processosAtuais = [];
 var processosGrid = document.getElementById("processos-grid");
 var processosDiv = document.getElementById("processos-div");
 
+function limparExecucao() {
+  let linhas = document.getElementsByClassName("processo-execucao");
+  for (let i=0;i<linhas.length;i++) {
+    for (let j=0;j<linhas[i].children.length;j++) {
+      linhas[i].children[j].style.backgroundColor = "white";
+    }
+  }
+}
 
 function adicionarProcesso() {
   numProcessos++;
@@ -38,7 +46,7 @@ function adicionarProcessoForm() {
 
       if (last) removePai.lastChild.removeChild(removePai.lastChild.lastChild);
       
-      let execucao = document.getElementById("processo"+this.id);
+      let execucao = document.getElementById("processo"+this.id+"execucao");
       execucao.parentElement.removeChild(execucao);
       
       numProcessos--;
@@ -132,18 +140,19 @@ function atualziarNumeroDeProcessos() {
   numeroInput.value = numProcessos;
 }
 
-document.getElementById("add-processo").addEventListener('click', adicionarProcesso);
-
-document.getElementById("iniciar-execucao").addEventListener('click', function() {
-  let error = checarCampos();
-  if (!error) {
-    //TODO ok
-  } else {
-    alert(error);
+function predicateBy(prop){
+  return function(a,b){
+     if( a[prop] > b[prop]){
+         return 1;
+     }else if( a[prop] < b[prop] ){
+         return -1;
+     }
+     return 0;
   }
-});
+}
 
 function checarCampos() {
+  let processosJson = [];
   let inputSobrecarga = document.getElementById("sobrecarga");
   let inputQuantum = document.getElementById("quantum");
   
@@ -156,12 +165,12 @@ function checarCampos() {
   let processos = document.getElementById("processos-form-div");
   for (let i=0;i<processos.children.length;i++) {
     let processoId = processos.children[i].id.slice(-1);
-
+    
     let inputChegada = document.getElementById(processos.children[i].id+"-chegada");
     let inputExecucao = document.getElementById(processos.children[i].id+"-execucao");
     let inputDeadline = document.getElementById(processos.children[i].id+"-deadline");
     let inputPrioridade = document.getElementById(processos.children[i].id+"-prioridade");
-
+    
     if (inputChegada.value === "" || inputChegada.value < 0) {
       return "Campo Tempo de Chegada do Processo " + processoId + " inválido";
     } else if (inputExecucao.value === "" || inputExecucao.value < 0) {
@@ -172,15 +181,38 @@ function checarCampos() {
       return "Campo Prioridade do Processo " + processoId + " inválido";
     }
 
+    let processo = {
+      "id": parseInt(processoId),
+      "chegada": parseInt(inputChegada.value),
+      "execucao": parseInt(inputExecucao.value),
+      "deadline": parseInt(inputDeadline.value),
+      "prioridade": parseInt(inputPrioridade.value),
+      "finalizado": false,
+    };
+    processosJson.push(processo);
   }
 
+  return processosJson.sort(predicateBy("chegada"));
 }
 
 function pintarQuadrado (processoId, coluna, cor) {
-  let processo = document.getElementById("processo1execucao").children[1];
+  let processo = document.getElementById("processo"+processoId+"execucao").children[1];
   processo.children[coluna].style.backgroundColor = cor;
-
+  
 }
+
+document.getElementById("add-processo").addEventListener('click', adicionarProcesso);
+
+document.getElementById("iniciar-execucao").addEventListener('click', function() {
+  let processosJson = checarCampos();
+  if (processosJson instanceof Array) {
+    limparExecucao();
+    let algoritmoSelect = document.getElementById("algoritmoSelect");
+    if (algoritmoSelect.value === "1") runFifo(processosJson);
+  } else {
+    alert(processosJson);
+  }
+});
 
 //Inicia com 2 processos
 adicionarProcesso();
