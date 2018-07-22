@@ -13,31 +13,31 @@ function runFifo(processos) {
         flag.push(false);
 
     while (flag.length != 0) {
-        executar(processosJson[processoAtual]);
+        fifoExecutar(processosJson[processoAtual]);
     }
 }
 
-function executar (processo) {
+function fifoExecutar (processo) {
     if (processo.chegada <= tempo) {
         for (let i=0;i<processo.execucao;i++) {
             pintarQuadrado(processo.id, tempo, "blue");
-            avancarTempo();
+            fifoAvancarTempo();
         }
         processoAtual++;
         processo.finalizado = true;
         flag.pop();
-    } else avancarTempo();
+    } else fifoAvancarTempo();
 }
 
-function checarChegada() {
+function fifoChecarChegada() {
     for (let i=processoAtual+1;i<processosJson.length;i++) {
         if (processosJson[i].chegada <= tempo)
             pintarQuadrado(processosJson[i].id, tempo, "green");
     }
 }
 
-function avancarTempo() {
-    checarChegada();
+function fifoAvancarTempo() {
+    fifoChecarChegada();
     tempo++;
 }
 

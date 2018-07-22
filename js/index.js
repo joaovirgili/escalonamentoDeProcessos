@@ -189,7 +189,15 @@ function checarCampos() {
       "prioridade": parseInt(inputPrioridade.value),
       "finalizado": false,
     };
+    
     processosJson.push(processo);
+  }
+  for (let i=0;i<processosJson.length;i++) {
+    let cabecalho = document.getElementById("processo"+processosJson[i].id+"execucao").children[0];
+    cabecalho.children[1].innerHTML = processosJson[i].chegada;
+    cabecalho.children[2].innerHTML = processosJson[i].execucao;
+    cabecalho.children[3].innerHTML = processosJson[i].deadline;
+    cabecalho.children[4].innerHTML = processosJson[i].prioridade;
   }
 
   return processosJson.sort(predicateBy("chegada"));
