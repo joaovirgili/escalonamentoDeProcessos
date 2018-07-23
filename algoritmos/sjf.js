@@ -7,20 +7,20 @@ var processoAtual;
 function runSjf(processos) {
     processosJson = processos;
     flag = [];
-    tempo = 0;
     fila = [];
+    tempo = 0;
 
     for (let i = 0; i < processosJson.length; i++) //Adiciona um marcado para cada processo. Quando não houver mais marcadores, todos os processos foram finalizados.
         flag.push(false);
 
-    atualizarFila(); //Ao inciar, atualiza a fila.
+    sjfAtualizarFila(); //Ao inciar, atualiza a fila.
 
     while (flag.length != 0) { //Enquanto ainda há processos
         if (fila.length !== 0)
             sjfExecutarProcesso();
         else {
             tempo++;
-            atualizarFila();
+            sjfAtualizarFila();
         }
     }
 }
@@ -35,14 +35,14 @@ function sjfExecutarProcesso() {
         for (let i=0;i<fila.length;i++) pintarQuadrado(fila[i].id, tempo, "green"); //pinta os processos da fila.
         processoAtual.execucao--;
         tempo++;
-        atualizarFila();
+        sjfAtualizarFila();
     }
     flag.pop();
 }
 
 //Atualiza a fila de processos, ordenando-a pelo menor tamanho de execução.
 //A cada tempo que passa, realiza a checagem se um processo novo entrará na fila.
-function atualizarFila() {
+function sjfAtualizarFila() {
     for (let i=0;i<processosJson.length;i++) {
         if (tempo === processosJson[i].chegada)
             fila.push(processosJson[i]);
