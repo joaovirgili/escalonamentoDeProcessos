@@ -28,8 +28,8 @@ function runFifo(processos) {
 function fifoExecutar(processo) {
     processoAtual = fila.splice(0,1)[0];
     while (processoAtual.execucao > 0) {
-        pintarQuadrado(processoAtual.id, tempo, "blue");
-        for (let i=0;i<fila.length;i++) pintarQuadrado(fila[i].id, tempo, "green");
+        pintarQuadrado(processoAtual.id, tempo, corExecucao);
+        for (let i=0;i<fila.length;i++) pintarQuadrado(fila[i].id, tempo, corEspera);
         processoAtual.execucao--;
         tempo++;
         fifoAtualizarFila();

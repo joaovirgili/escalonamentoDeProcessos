@@ -4,6 +4,10 @@ var idProcessos = 0;
 var processosAtuais = [];
 var processosGrid = document.getElementById("processos-grid");
 var processosDiv = document.getElementById("processos-div");
+var corEspera = "#BFDBF7";
+var corExecucao = "#ACF39D";
+var corSobrecarga = "#AF3E4D";
+
 
 function limparExecucao() {
   let linhas = document.getElementsByClassName("processo-execucao");
