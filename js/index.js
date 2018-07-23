@@ -99,7 +99,7 @@ function adicionarProcessoExecucao() {
   processoCabecalho.appendChild(processoNome);
   for (let i=0;i<4;i++) {
     let div = document.createElement("div");
-    div.setAttribute("class", "square");
+    div.setAttribute("class", "square text-center");
     processoCabecalho.appendChild(div);
   }
 
@@ -206,7 +206,6 @@ function checarCampos() {
 function pintarQuadrado (processoId, coluna, cor) {
   let processo = document.getElementById("processo"+processoId+"execucao").children[1];
   processo.children[coluna].style.backgroundColor = cor;
-  
 }
 
 document.getElementById("add-processo").addEventListener('click', adicionarProcesso);
@@ -217,6 +216,7 @@ document.getElementById("iniciar-execucao").addEventListener('click', function()
     limparExecucao();
     let algoritmoSelect = document.getElementById("algoritmoSelect");
     if (algoritmoSelect.value === "1") runFifo(processosJson);
+    else if (algoritmoSelect.value === "2") runSjf(processosJson);
   } else {
     alert(processosJson);
   }
