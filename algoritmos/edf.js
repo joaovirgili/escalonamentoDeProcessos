@@ -18,6 +18,7 @@ function runEDF(processos) {
             edfAtualizarFila();
         }
     }
+    exibirResultado(turnAround/numProcessos);
 }
 
 function edfExecutarProcesso() {

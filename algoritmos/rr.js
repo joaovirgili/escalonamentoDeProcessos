@@ -17,6 +17,8 @@ function runRoundRobin(processos) {
             rrAtualizarFila();
         }
     }
+
+    exibirResultado(turnAround/numProcessos);
 }
 
 function rrExecutarProcesso() {
@@ -34,8 +36,7 @@ function rrExecutarProcesso() {
     } else if (processoAtual.quantum == 0) {
         rrSobrecarga();
         processoAtual.quantum = quantum;
-        // fila.push(processoAtual);
-        if (fila.length > 0 && processoAtual.prioridade >= fila[0].prioridade) {
+        if (fila.length > 0 && processoAtual.prioridade > fila[0].prioridade) {
             fila.unshift(processoAtual);
         } else {
             fila.push(processoAtual);

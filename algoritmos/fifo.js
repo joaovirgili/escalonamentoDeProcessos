@@ -17,6 +17,8 @@ function runFifo(processos) {
             fifoAtualizarFila();
         }
     }
+
+    exibirResultado(turnAround/numProcessos);
 }
 
 function fifoExecutar(processo) {

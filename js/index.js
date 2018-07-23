@@ -15,10 +15,13 @@ var fila;
 var processoAtual;
 var quantum;
 var sobrecarga;
+var turnAround = 0;
 
 
 
 function limparExecucao() {
+  turnAround = 0;
+  document.getElementById("resultado").innerHTML = "executando...";
   let linhas = document.getElementsByClassName("processo-execucao");
   for (let i = 0; i < linhas.length; i++) {
     if (i != linhas.length - 1)
@@ -121,7 +124,7 @@ function adicionarProcessoExecucao() {
   //Criação da div processoExecucao
   let processoExecucao = document.createElement("div");
   processoExecucao.setAttribute("class", "processo-execucao");
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 45; i++) {
     let div = document.createElement("div");
     div.setAttribute("class", "square");
     processoExecucao.appendChild(div);
@@ -233,11 +236,14 @@ function checarCampos() {
 }
 
 function pintarQuadrado(processoId, coluna, cor) {
+  turnAround++;
   setTimeout(() => {
     let processo = document.getElementById("processo" + processoId + "execucao").children[1];
     processo.children[coluna].style.backgroundColor = cor;
-    
   }, tempo*1000);
+
+  // let processo = document.getElementById("processo" + processoId + "execucao").children[1];
+  // processo.children[coluna].style.backgroundColor = cor;
 }
 
 document.getElementById("add-processo").addEventListener('click', adicionarProcesso);
@@ -255,6 +261,12 @@ document.getElementById("iniciar-execucao").addEventListener('click', function (
     alert(processosJson);
   }
 });
+
+function exibirResultado(resultado) {
+  setTimeout(() => {
+    document.getElementById("resultado").innerText = resultado;
+  }, tempo*1000);
+}
 
 //Inicia com 2 processos
 adicionarProcesso();

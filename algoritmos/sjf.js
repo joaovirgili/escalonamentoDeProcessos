@@ -17,6 +17,8 @@ function runSjf(processos) {
             sjfAtualizarFila();
         }
     }
+
+    exibirResultado(turnAround/numProcessos);
 }
 
 //Execução do processo.
