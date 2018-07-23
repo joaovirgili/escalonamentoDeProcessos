@@ -1,9 +1,3 @@
-var flag;
-var tempo;
-var processosJson;
-var fila;
-var processoAtual;
-
 function runFifo(processos) {
     processosJson = processos;
     flag = [];
@@ -26,10 +20,11 @@ function runFifo(processos) {
 }
 
 function fifoExecutar(processo) {
-    processoAtual = fila.splice(0,1)[0];
+    processoAtual = fila.splice(0, 1)[0];
+
     while (processoAtual.execucao > 0) {
         pintarQuadrado(processoAtual.id, tempo, corExecucao);
-        for (let i=0;i<fila.length;i++) pintarQuadrado(fila[i].id, tempo, corEspera);
+        for (let i = 0; i < fila.length; i++) pintarQuadrado(fila[i].id, tempo, corEspera);
         processoAtual.execucao--;
         tempo++;
         fifoAtualizarFila();
@@ -37,10 +32,10 @@ function fifoExecutar(processo) {
     flag.pop();
 }
 
+
 function fifoAtualizarFila() {
     for (let i = 0; i < processosJson.length; i++) {
         if (tempo === processosJson[i].chegada)
             fila.push(processosJson[i]);
     }
 }
-

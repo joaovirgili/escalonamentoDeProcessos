@@ -1,9 +1,3 @@
-var flag;
-var tempo;
-var processosJson;
-var fila;
-var processoAtual;
-
 function runSjf(processos) {
     processosJson = processos;
     flag = [];
